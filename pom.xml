@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>se2_sever</name>
     <description>se2_sever</description>
-    <properties>
+        <properties>
         <java.version>17</java.version>
     </properties>
     <dependencies>
