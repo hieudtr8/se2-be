@@ -38,9 +38,8 @@ public class ProductRepository {
         return products.stream().map(this::mapProduct).toList();
     }
 
-    public List<Product> getProductsByName(String name) {
-        List<ProductRepoModel> products = productRepoJpa.findByName(name);
-        return products.stream().map(this::mapProduct).toList();
+    public Product getProductByName(String name) {
+        return productRepoJpa.findByName(name).map(this::mapProduct).orElse(null);
     }
 
     public void deleteProductById(UUID id) throws Exception {
@@ -50,6 +49,7 @@ public class ProductRepository {
             throw new Exception("Product not found");
         }
     }
+
 
     private Product mapProduct(ProductRepoModel productFromDatabase) {
         try {

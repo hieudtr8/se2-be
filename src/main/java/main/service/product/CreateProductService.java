@@ -20,7 +20,7 @@ public class CreateProductService {
             Integer amount,
             String color) throws Exception {
         Product product = new Product(name, price, description, images, amount, color);
-        if (productRepository.getProductsByName(name).size() > 0)
+        if (productRepository.getProductByName(name) != null)
             throw new Exception("Product " + product.getName() + " already exists");
         productRepository.saveProduct(product);
         return product;

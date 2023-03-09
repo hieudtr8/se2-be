@@ -36,7 +36,7 @@ public class EditProductService {
             throw new Exception("Product not found");
         }
         if (productData.name != null) {
-            if (productRepository.getProductsByName(productData.name).size() > 0 && !product.getName().equals(productData.name))
+            if (productRepository.getProductByName(productData.name) != null && !product.getName().equals(productData.name))
                 throw new Exception("Product " + productData.name + " already exists");
             product.setName(productData.name);
         }
