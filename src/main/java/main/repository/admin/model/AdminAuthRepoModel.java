@@ -10,10 +10,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "adminAuth")
 public class AdminAuthRepoModel {
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Id
     public String id;
 
+    @Column(nullable = false, length = 100)
     public String password;
 
     public AdminAuthRepoModel(String id,String password) {
