@@ -6,8 +6,12 @@ import jakarta.persistence.*;
 @Table(name = "product_category")
 @IdClass(ProductCategoryCompositeKey.class)
 public class ProductCategoryRepoModel {
+
+    @Column(nullable = false, length = 100)
     @Id
     public String productId;
+
+    @Column(nullable = false, length = 100)
     @Id
     public String categoryId;
 

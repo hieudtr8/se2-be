@@ -11,9 +11,11 @@ import java.util.UUID;
 @Table(name = "category")
 public class CategoryRepoModel {
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Id
     public String id;
+
+    @Column(nullable = false, length = 100)
     public String name;
 
     public CategoryRepoModel(String id, String name) {
