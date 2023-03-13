@@ -30,6 +30,11 @@ public class CustomerProfileRepository {
         return customerProfile.map(this::mapCustomerProfile).orElse(null);
     }
 
+    public List<CustomerProfile> getAllCustomerProfile() {
+        List<CustomerProfileRepoModel> customerProfiles = customerProfileRepoJpa.findAll();
+        return customerProfiles.stream().map(this::mapCustomerProfile).toList();
+    }
+
     private CustomerProfile mapCustomerProfile(CustomerProfileRepoModel customerProfileFromDatabase) {
         try {
             return new CustomerProfile(
