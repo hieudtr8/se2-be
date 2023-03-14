@@ -19,19 +19,20 @@ public class EditProductService {
         Double price;
         String description;
         List<String> images;
-        String color;
+        String brand;
 
-        public ProductData(String name, Double price, String description, List<String> images, String color) {
+        public ProductData(String name, Double price, String description, List<String> images, String brand) {
             this.name = name;
             this.price = price;
             this.description = description;
             this.images = images;
-            this.color = color;
+            this.brand = brand;
         }
     }
 
     public Product editProduct(UUID id, ProductData productData) throws Exception {
         Product product = productRepository.getProductById(id);
+
         if (product == null) {
             throw new Exception("Product not found");
         }
@@ -46,8 +47,9 @@ public class EditProductService {
             product.setDescription(productData.description);
         if (productData.images != null)
             product.setImages(productData.images);
-        if (productData.color != null)
-            product.setColor(productData.color);
+        if (productData.brand != null)
+            product.setBrand(productData.brand);
+        System.out.println(product);
         productRepository.saveProduct(product);
         return product;
     }

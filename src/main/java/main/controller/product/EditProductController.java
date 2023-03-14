@@ -26,7 +26,7 @@ public class EditProductController {
         public Double price;
         public String description;
         public String[] images;
-        public String color;
+        public String brand;
     }
 
     @PutMapping(value = "/product/{id}")
@@ -40,7 +40,7 @@ public class EditProductController {
                     request.price,
                     request.description,
                     request.images == null ? null : new ArrayList<>(Arrays.asList(request.images)),
-                    request.color
+                    request.brand
             ));
             return new ResponseEntity<>(new Response<>(
                     "Edited Product " + product.getName(),

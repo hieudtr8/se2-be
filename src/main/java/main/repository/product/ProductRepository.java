@@ -1,5 +1,8 @@
 package main.repository.product;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import main.model.Product;
 import main.repository.product.model.ProductRepoModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +20,19 @@ public class ProductRepository {
     private ProductRepoJpa productRepoJpa;
 
     public void saveProduct(Product product) {
-        productRepoJpa.save(new ProductRepoModel(
-                product.getId().toString(),
-                product.getName(),
-                product.getPrice(),
-                product.getDescription(),
-                product.getImages(),
-                product.getAmount(),
-                product.getColor()
-        ));
+        try {
+            productRepoJpa.save(new ProductRepoModel(
+                    product.getId().toString(),
+                    product.getName(),
+                    product.getPrice(),
+                    product.getDescription(),
+                    new ObjectMapper().writeValueAsString(product.getImages()),
+                    product.getAmount(),
+                    product.getBrand()
+            ));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Product getProductById(UUID id) {
@@ -58,9 +65,9 @@ public class ProductRepository {
                     productFromDatabase.name,
                     productFromDatabase.price,
                     productFromDatabase.description,
-                    productFromDatabase.images,
+                    new ObjectMapper().readValue(productFromDatabase.images, new TypeReference<List<String>>() {}),
                     productFromDatabase.amount,
-                    productFromDatabase.color
+                    productFromDatabase.brand
             );
         } catch (Exception e) {
             System.out.println("Invalid product data in database");

@@ -27,7 +27,7 @@ public class CreateProductController {
         public String description;
         public String[] images;
         public Integer amount;
-        public String color;
+        public String brand;
     }
 
     @PostMapping(value = "/product")
@@ -41,7 +41,7 @@ public class CreateProductController {
                     request.description,
                     request.images == null ? null : new ArrayList<>(Arrays.asList(request.images)),
                     request.amount,
-                    request.color
+                    request.brand
             );
             return new ResponseEntity<>(new Response<Product>(
                     "Product " + product.getName() + " created",

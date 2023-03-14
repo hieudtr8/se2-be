@@ -12,26 +12,26 @@ public class Product {
 
     private List<String> images;
     private Integer amount;
-    private String color;
+    private String brand;
 
-    public Product(String name, Double price, String description, List<String> images, Integer amount, String color) throws Exception {
+    public Product(String name, Double price, String description, List<String> images, Integer amount, String brand) throws Exception {
         this.id = UUID.randomUUID();
         setName(name);
         setPrice(price);
         setDescription(description);
         setImages(images);
         setAmount(amount);
-        setColor(color);
+        setBrand(brand);
     }
 
-    public Product(UUID id, String name, Double price, String description, List<String> images, Integer amount, String color) throws Exception {
+    public Product(UUID id, String name, Double price, String description, List<String> images, Integer amount, String brand) throws Exception {
         this.id = id;
         setName(name);
         setPrice(price);
         setDescription(description);
         setImages(images);
         setAmount(amount);
-        setColor(color);
+        setBrand(brand);
     }
 
     public UUID getId() {
@@ -58,8 +58,8 @@ public class Product {
         return amount;
     }
 
-    public String getColor() {
-        return color;
+    public String getBrand() {
+        return brand;
     }
 
     public void setName(String name) throws Exception {
@@ -87,9 +87,9 @@ public class Product {
         this.amount = amount;
     }
 
-    public void setColor(String color) throws Exception {
-        validateColor(color);
-        this.color = color;
+    public void setBrand(String brand) throws Exception {
+        validateBrand(brand);
+        this.brand = brand;
     }
 
     public static void validateName(String name) throws Exception {
@@ -151,10 +151,9 @@ public class Product {
             throw new Exception("Too many products");
     }
 
-    public static void validateColor(String color) throws Exception {
-        if (color == null)
-            throw new Exception("Color can't be null");
-        Color.validateColor(color);
+    public static void validateBrand(String brand) throws Exception {
+        if (brand == null)
+            throw new Exception("Brand can't be null");
     }
 
     @Override
@@ -166,7 +165,7 @@ public class Product {
                 "\n\tdescription = '" + description + '\'' +
                 "\n\timages = " + images +
                 "\n\tamount = " + amount +
-                "\n\tcolor = " + color +
+                "\n\tbrand = " + brand +
                 "\n}";
     }
 }
