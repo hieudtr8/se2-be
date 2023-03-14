@@ -6,25 +6,24 @@ import java.util.List;
 @Entity
 @Table(name = "product")
 public class ProductRepoModel {
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Id
     public String id;
     public String name;
     public double price;
     public String description;
-    @ElementCollection
-    public List<String> images;
+    public String images;
     public int amount;
-    public String color;
+    public String brand;
 
     public ProductRepoModel(
             String id,
             String name,
             double price,
             String description,
-            List<String> images,
+            String images,
             int amount,
-            String color
+            String brand
     ) {
         this.id = id;
         this.name = name;
@@ -32,8 +31,9 @@ public class ProductRepoModel {
         this.description = description;
         this.images = images;
         this.amount = amount;
-        this.color = color;
+        this.brand = brand;
     }
+
 
     public ProductRepoModel() {
 

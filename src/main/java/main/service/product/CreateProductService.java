@@ -18,10 +18,11 @@ public class CreateProductService {
             String description,
             List<String> images,
             Integer amount,
-            String color) throws Exception {
-        Product product = new Product(name, price, description, images, amount, color);
+            String brand) throws Exception {
+        Product product = new Product(name, price, description, images, amount, brand);
         if (productRepository.getProductByName(name) != null)
             throw new Exception("Product " + product.getName() + " already exists");
+        System.out.println(product);
         productRepository.saveProduct(product);
         return product;
     }
