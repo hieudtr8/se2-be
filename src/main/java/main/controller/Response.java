@@ -10,4 +10,12 @@ public class Response<T> {
         this.success = success;
         this.data = data;
     }
+
+    public static <R> Response<R> success(String message, R data) {
+        return new Response<>(message, true, data);
+    }
+
+    public static Response<?> fail(String message) {
+        return new Response<>(message, false, null);
+    }
 }
