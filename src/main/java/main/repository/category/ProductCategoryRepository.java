@@ -9,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component("productCategoryRepository")
 
@@ -58,7 +59,7 @@ public class ProductCategoryRepository {
     }
 
     private ProductCategory mapProductCategory(ProductCategoryRepoModel productCategoryRepoModel) {
-        return new ProductCategory(productCategoryRepoModel.productId, productCategoryRepoModel.categoryId);
+        return new ProductCategory(UUID.fromString(productCategoryRepoModel.productId),UUID.fromString( productCategoryRepoModel.categoryId));
     }
 
 }

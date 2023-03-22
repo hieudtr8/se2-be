@@ -5,6 +5,8 @@ import main.repository.admin.model.AdminAuthRepoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component("adminAuthRepository")
 public class AdminAuthRepository {
 
@@ -23,6 +25,6 @@ public class AdminAuthRepository {
     }
 
     private AdminAuth mapAdmin(AdminAuthRepoModel adminAuthRepoModel) {
-        return new AdminAuth(adminAuthRepoModel.id, adminAuthRepoModel.password);
+        return new AdminAuth(UUID.fromString(adminAuthRepoModel.id), adminAuthRepoModel.password);
     }
 }
