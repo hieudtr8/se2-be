@@ -16,14 +16,14 @@ public class CreateProductCategoryController {
     private CreateProductCategoryService createProductCategoryService;
 
     @Validated
-    static class CreateProductCategoryRequest {
+    static class ProductCategoryRequest {
         public String productId;
         public String categoryId;
     }
 
     @PostMapping("/productCategory")
     public ResponseEntity<Response<?>> createProductCategory(@RequestBody
-                                                                 CreateProductCategoryRequest request) {
+                                                             ProductCategoryRequest request) {
         try {
             ProductCategory productCategory =
                     createProductCategoryService.createProductCategory(request.productId, request.categoryId);

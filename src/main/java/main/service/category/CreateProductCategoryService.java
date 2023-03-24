@@ -32,7 +32,7 @@ public class CreateProductCategoryService {
             throw new Exception("Category id not found");
         }
 
-        ProductCategory productCategory = new ProductCategory(productId, categoryId);
+        ProductCategory productCategory = new ProductCategory(UUID.fromString(productId), UUID.fromString(categoryId));
         if (productCategoryRepository.getProductCategory(productId, categoryId) != null) {
             throw new Exception("Product already had this category");
         }

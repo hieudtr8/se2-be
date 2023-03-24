@@ -3,15 +3,15 @@ package main.model;
 import java.util.UUID;
 
 public class AdminAuth {
-    public String id;
+    public UUID id;
     public String password;
 
     public AdminAuth(String password) {
-        this.id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID();
         setPassword(password);
     }
 
-    public AdminAuth(String id, String password) {
+    public AdminAuth(UUID id, String password) {
         this.id = id;
         this.password = password;
     }

@@ -98,10 +98,9 @@ public class CustomerProfile {
             throw new Exception("Not valid age");
     }
     public static void validatePhone(String phone) throws Exception {
-        Pattern pattern = Pattern.compile("/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/");
         if (phone == null)
             throw new Exception("Age can't be null");
-        if (pattern.matcher(phone).matches())
+        if (!phone.matches("(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b"))
             throw new Exception("Not valid phone number, make sure your phone number is from Viet Nam");
     }
     public static void validateAddress(String address) throws Exception {
