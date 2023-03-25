@@ -49,7 +49,6 @@ public class EditProductService {
             product.setImages(productData.images);
         if (productData.brand != null)
             product.setBrand(productData.brand);
-        System.out.println(product);
         productRepository.saveProduct(product);
         return product;
     }

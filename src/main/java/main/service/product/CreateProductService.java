@@ -22,7 +22,6 @@ public class CreateProductService {
         Product product = new Product(name, price, description, images, amount, brand);
         if (productRepository.getProductByName(name) != null)
             throw new Exception("Product " + product.getName() + " already exists");
-        System.out.println(product);
         productRepository.saveProduct(product);
         return product;
     }
