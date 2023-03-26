@@ -1,6 +1,7 @@
 package main.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import main.repository.customer_profile.model.CustomerProfileRepoModel;
 
 import java.util.UUID;
@@ -8,6 +9,7 @@ import java.util.UUID;
 public class CustomerAuth {
     private UUID id;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private CustomerProfile customerProfile;
 
@@ -45,7 +47,7 @@ public class CustomerAuth {
         this.customerProfile = customerProfile;
     }
 
-    public CustomerAuth(UUID id, String email, String password,CustomerProfile customerProfile) throws Exception {
+    public CustomerAuth(UUID id, String email, String password, CustomerProfile customerProfile) throws Exception {
         this.id = id;
         setEmail(email);
         setPassword(password);

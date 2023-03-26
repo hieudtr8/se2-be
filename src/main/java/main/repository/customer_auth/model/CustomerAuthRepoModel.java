@@ -1,5 +1,6 @@
 package main.repository.customer_auth.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import main.model.CustomerProfile;
 import main.repository.customer_profile.model.CustomerProfileRepoModel;
@@ -17,6 +18,7 @@ public class CustomerAuthRepoModel {
     public String id;
     @Column(nullable = false, length = 100)
     public String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String password;
 
 

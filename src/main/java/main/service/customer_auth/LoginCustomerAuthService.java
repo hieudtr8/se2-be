@@ -15,11 +15,11 @@ public class LoginCustomerAuthService {
     private CustomerAuthRepository customerAuthRepository;
     public CustomerAuth loginCustomerAuth (String email, String password) throws Exception {
         List<CustomerAuth> customerAuths = customerAuthRepository.getAllCustomerAuth();
-        byte[] decodedPasswordByte = Base64.getDecoder().decode(password);
-        String decodedPassword = new String(decodedPasswordByte);
         CustomerAuth foundCustomerAuth = null;
         for (CustomerAuth customerAuth: customerAuths) {
-            if (Objects.equals(customerAuth.getEmail(), email) && Objects.equals(customerAuth.getPassword(), decodedPassword)) {
+            byte[] decodedPasswordByte = Base64.getDecoder().decode(customerAuth.getPassword());
+            String decodedPassword = new String(decodedPasswordByte);
+            if (Objects.equals(customerAuth.getEmail(), email) && Objects.equals(decodedPassword, password)) {
                 foundCustomerAuth = customerAuth;
             }
         };
