@@ -1,6 +1,8 @@
 package main.repository.customer_profile.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import main.repository.customer_auth.model.CustomerAuthRepoModel;
 
 import java.util.List;
 
@@ -16,6 +18,9 @@ public class CustomerProfileRepoModel {
     public String phone;
     public String address;
     public String avatar;
+    @OneToOne(mappedBy = "customerProfile")
+    @JsonBackReference
+    public CustomerAuthRepoModel customerAuth;
 
     public CustomerProfileRepoModel(String id, String name, int age, String phone, String address, String avatar) {
         this.id = id;
