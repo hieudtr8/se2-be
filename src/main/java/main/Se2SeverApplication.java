@@ -12,12 +12,13 @@ public class Se2SeverApplication {
     public static void main(String[] args) {
         SpringApplication.run(Se2SeverApplication.class, args);
     }
+
     @Bean
     public WebMvcConfigurer corsConfigurer () {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("https://se2-ecommerce.herokuapp.com/");
+                registry.addMapping("/**").allowedOrigins("*");
             }
         };
     }
