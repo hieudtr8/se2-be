@@ -131,8 +131,6 @@ public class Product {
                 throw new Exception("Image can't be empty");
             if (image.length() > 1000)
                 throw new Exception("Image url too long");
-            if (!image.matches("^(http|https)://.*"))
-                throw new Exception("Invalid image url");
         }
         for (int i = 0; i < images.size(); i++) {
             for (int j = i + 1; j < images.size(); j++) {
