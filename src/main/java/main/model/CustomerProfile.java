@@ -1,5 +1,6 @@
 package main.model;
 
+import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -28,8 +29,10 @@ public class CustomerProfile {
         setAddress(address);
         setAvatar(avatar);
     }
+    public CustomerProfile() {
+    }
 
-    public UUID getId() {
+        public UUID getId() {
         return id;
     }
 
@@ -58,12 +61,10 @@ public class CustomerProfile {
     }
 
     public void setName(String name) throws Exception {
-        validateName(name);
         this.name = name;
     }
 
     public void setAge(Integer age)  throws Exception {
-        validateAge(age);
         this.age = age;
     }
 
@@ -73,12 +74,10 @@ public class CustomerProfile {
     }
 
     public void setAddress(String address) throws Exception {
-        validateAddress(address);
         this.address = address;
     }
 
     public void setAvatar(String avatar) throws Exception {
-        validateAvatar(address);
         this.avatar = avatar;
     }
 
@@ -92,27 +91,17 @@ public class CustomerProfile {
     }
 
     public static void validateAge(Integer age) throws Exception {
-        if (age == null)
-            throw new Exception("Age can't be null");
-        if (age > 90 || age < 6)
-            throw new Exception("Not valid age");
+        if(age != 0) {
+            if (age > 90 || age < 6) {
+                throw new Exception("Not valid age");
+            }
+        }
     }
     public static void validatePhone(String phone) throws Exception {
-        if (phone == null)
-            throw new Exception("Age can't be null");
-        if (!phone.matches("(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b"))
-            throw new Exception("Not valid phone number, make sure your phone number is from Viet Nam");
-    }
-    public static void validateAddress(String address) throws Exception {
-        if (address == null)
-            throw new Exception("Address can't be null");
-        if (address.length() == 0)
-            throw new Exception("Address can't be empty");
-    }
-    public static void validateAvatar(String avatar) throws Exception {
-        if (avatar == null)
-            throw new Exception("Avatar can't be null");
-        if (avatar.length() == 0)
-            throw new Exception("Avatar can't be empty");
+        if (!Objects.equals(phone, "")) {
+            if (!phone.matches("(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b")) {
+                throw new Exception("Not valid phone number, make sure your phone number is from Viet Nam");
+            }
+        }
     }
 }
