@@ -38,6 +38,7 @@ public class ClaimVoucherController {
                     voucher
             ));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(new Response<String>(
                     e.getMessage(),
                     false,

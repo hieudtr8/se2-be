@@ -47,4 +47,12 @@ public class CustomerVoucher {
             throw new Exception("Codes cannot be null");
         }
     }
+
+    @Override
+    public String toString() {
+        return "CustomerVoucher{" +
+                "customerId=" + customerId +
+                ", codes=" + codes +
+                '}';
+    }
 }

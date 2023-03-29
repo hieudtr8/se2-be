@@ -1,5 +1,6 @@
 package main.service.voucher;
 
+import main.model.CustomerVoucher;
 import main.model.Visibility;
 import main.model.Voucher;
 import main.repository.voucher.VoucherRepository;
@@ -14,19 +15,38 @@ public class SearchVoucherService {
     @Autowired
     private VoucherRepository voucherRepository;
 
-    public Voucher getVoucherByCode(UUID code) {
+    @Autowired
+    private SearchCustomerVoucherService searchCustomerVoucherService;
+
+    public Voucher getVoucherByCode(UUID code, UUID customerId) throws Exception {
         Voucher voucher = voucherRepository.getVoucherByCode(code);
         if (voucher == null)
             return null;
-        // TODO: check if customer have claimed this voucher
-        if (voucher.getVisibility() == Visibility.PROTECTED)
+        if (voucher.getVisibility() == Visibility.PROTECTED) {
+            CustomerVoucher customerVoucher = searchCustomerVoucherService.getCustomerVoucher(customerId);
+            if (customerVoucher == null)
+                return null;
+            if (customerVoucher.getCodes().contains(voucher.getCode()))
+                return voucher;
             return null;
+        }
         return voucher;
     }
 
-    public List<Voucher> listVouchers() {
+    public List<Voucher> listVouchers(UUID customerId) throws Exception {
         List<Voucher> vouchers = voucherRepository.getAllVouchers();
+        CustomerVoucher customerVoucher = searchCustomerVoucherService.getCustomerVoucher(customerId);
         // TODO: check if customer have claimed this voucher
-        return vouchers.stream().filter(voucher -> voucher.getVisibility() != Visibility.PROTECTED).toList();
+        return vouchers.stream().filter(voucher -> {
+            if (voucher.getVisibility() == Visibility.PUBLIC)
+                return true;
+            else {
+                if (customerVoucher == null)
+                    return false;
+                if (customerVoucher.getCodes().contains(voucher.getCode()))
+                    return true;
+                return false;
+            }
+        }).toList();
     }
 }
