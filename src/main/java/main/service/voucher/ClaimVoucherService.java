@@ -7,10 +7,7 @@ import main.repository.voucher.VoucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ClaimVoucherService {
@@ -26,6 +23,13 @@ public class ClaimVoucherService {
         if (voucher == null) {
             throw new RuntimeException("Voucher not found");
         }
+        List<UUID> customersClaimedVoucher = customerVoucherRepository.getCustomerIdsByCode(code);
+        if (customersClaimedVoucher.contains(customerId))
+            throw new RuntimeException("You have already claimed this voucher");
+        if (voucher.getQuantity() <= customersClaimedVoucher.size())
+            throw new RuntimeException("Run out of voucher");
+        if (voucher.getExpiredAt().before(new Date()))
+            throw new RuntimeException("Voucher has expired");
         customerVoucherRepository.saveCustomerVoucher(customerId, code);
         return voucher;
     }

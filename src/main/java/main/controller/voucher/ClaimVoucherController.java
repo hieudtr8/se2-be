@@ -2,6 +2,7 @@ package main.controller.voucher;
 
 import main.controller.Response;
 import main.model.Voucher;
+import main.service.customer_auth.SearchCustomerAuthService;
 import main.service.voucher.ClaimVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class ClaimVoucherController {
     @Autowired
     private ClaimVoucherService claimVoucherService;
 
+    @Autowired
+    private SearchCustomerAuthService searchCustomerAuthService;
+
     public static class ClaimVoucherRequest {
         public String customerId;
     }
@@ -28,6 +32,7 @@ public class ClaimVoucherController {
             @NonNull @RequestBody ClaimVoucherRequest request
     ) {
         try {
+            searchCustomerAuthService.getCustomerAuthById(UUID.fromString(request.customerId));
             Voucher voucher = claimVoucherService.claimVoucher(
                     UUID.fromString(request.customerId),
                     UUID.fromString(id)
@@ -38,7 +43,6 @@ public class ClaimVoucherController {
                     voucher
             ));
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(new Response<String>(
                     e.getMessage(),
                     false,

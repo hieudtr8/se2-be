@@ -2,6 +2,7 @@ package main.controller.voucher;
 
 import main.controller.Response;
 import main.model.Voucher;
+import main.service.customer_auth.SearchCustomerAuthService;
 import main.service.voucher.SearchVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class ListVoucherController {
     @Autowired
     private SearchVoucherService searchVoucherService;
 
+    @Autowired
+    private SearchCustomerAuthService searchCustomerAuthService;
+
     public static class SearchVoucherRequest {
         public String customerId;
     }
@@ -26,8 +30,9 @@ public class ListVoucherController {
     public ResponseEntity<Response<?>> listVouchers(
             @NonNull @RequestBody SearchVoucherRequest requestBody
     ) throws Exception {
-        List<Voucher> vouchers = searchVoucherService.listVouchers(UUID.fromString(requestBody.customerId));
         try {
+            searchCustomerAuthService.getCustomerAuthById(UUID.fromString(requestBody.customerId));
+            List<Voucher> vouchers = searchVoucherService.listVouchers(UUID.fromString(requestBody.customerId));
             return ResponseEntity.ok(new Response<>(
                     "found " + vouchers.size() + " vouchers",
                     true,
