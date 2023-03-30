@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Component("productCategoryRepository")
-
 public class ProductCategoryRepository {
 
     @Autowired
