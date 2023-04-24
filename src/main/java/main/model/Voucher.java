@@ -1,17 +1,23 @@
 package main.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.UUID;
 
 public class Voucher {
-    private final UUID code;
+    private UUID code;
     private int quantity;
     private double value;
     private double minimumApplicablePrice;
     private Date expiredAt;
     private Visibility visibility;
 
-    public Voucher(UUID code, int quantity, double value, double minimumApplicablePrice, Date expiredAt, Visibility visibility) throws Exception {
+    @JsonCreator
+    public Voucher(@JsonProperty("code") UUID code, @JsonProperty("quantity") int quantity,
+                   @JsonProperty("value") double value, @JsonProperty("minimumApplicablePrice") double minimumApplicablePrice,
+                   @JsonProperty("expiredAt") Date expiredAt, @JsonProperty("visibility") Visibility visibility) throws Exception {
         this.code = code;
         setQuantity(quantity);
         if (value > minimumApplicablePrice) {
@@ -21,6 +27,10 @@ public class Voucher {
         this.minimumApplicablePrice = minimumApplicablePrice;
         setExpiredAt(expiredAt);
         setVisibility(visibility);
+    }
+
+    public Voucher() {
+
     }
 
     public Voucher(int quantity, double value, double minimumApplicablePrice, Date expiredAt, Visibility visibility) throws Exception {
@@ -65,6 +75,7 @@ public class Voucher {
     }
 
     public void setValue(double value) throws Exception {
+        System.out.println("value set to " + value + "");
         validateValue(value);
         if (value > this.minimumApplicablePrice) {
             throw new Exception("Value must be less than or equal to minimum applicable price");
@@ -73,6 +84,7 @@ public class Voucher {
     }
 
     public void setMinimumApplicablePrice(double minimumApplicablePrice) throws Exception {
+        System.out.println("minimumApplicablePrice set to " + minimumApplicablePrice + "");
         validateMinimumApplicablePrice(minimumApplicablePrice);
         if (minimumApplicablePrice < this.value) {
             throw new Exception("Minimum applicable price must be greater than or equal to value");
@@ -80,8 +92,7 @@ public class Voucher {
         this.minimumApplicablePrice = minimumApplicablePrice;
     }
 
-    public void setExpiredAt(Date expiredAt) throws Exception {
-        validateExpiredAt(expiredAt);
+    public void setExpiredAt(Date expiredAt) {
         this.expiredAt = expiredAt;
     }
 
@@ -108,15 +119,21 @@ public class Voucher {
         }
     }
 
-    public static void validateExpiredAt(Date expiredAt) throws Exception {
-        if (expiredAt.before(new Date())) {
-            throw new Exception("Expired at must be greater than current date");
-        }
-    }
-
     public static void validateVisibility(Visibility visibility) throws Exception {
         if (visibility == null) {
             throw new IllegalArgumentException("Visibility must not be null");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Voucher{" +
+                "code=" + code +
+                ", quantity=" + quantity +
+                ", value=" + value +
+                ", minimumApplicablePrice=" + minimumApplicablePrice +
+                ", expiredAt=" + expiredAt +
+                ", visibility=" + visibility +
+                '}';
     }
 }

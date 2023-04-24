@@ -13,4 +13,9 @@ public class DateFormatter {
             throw new RuntimeException(e);
         }
     }
+
+    public static String formatDate(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        return dateFormat.format(date);
+    }
 }
