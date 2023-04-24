@@ -17,4 +17,8 @@ public class SearchCustomerVoucherService {
     public CustomerVoucher getCustomerVoucher(UUID customerId) throws Exception {
         return customerVoucherRepository.getCustomerVoucherByCustomerId(customerId);
     }
+
+    public List<UUID> getCustomerVoucherByCode(UUID code) throws Exception {
+        return customerVoucherRepository.getCustomerIdsByCode(code);
+    }
 }

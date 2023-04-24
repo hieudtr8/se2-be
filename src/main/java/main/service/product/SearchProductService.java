@@ -21,6 +21,12 @@ public class SearchProductService {
         return product;
     }
 
+    public List<Product> getProductsByIds(List<UUID> ids) throws Exception {
+        List<Product> products = productRepository.getAllProducts();
+        products.removeIf(product -> !ids.contains(product.getId()));
+        return products;
+    }
+
     public List<Product> getProducts() {
         return productRepository.getAllProducts();
     }

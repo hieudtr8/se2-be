@@ -36,7 +36,6 @@ public class SearchVoucherService {
     public List<Voucher> listVouchers(UUID customerId) throws Exception {
         List<Voucher> vouchers = voucherRepository.getAllVouchers();
         CustomerVoucher customerVoucher = searchCustomerVoucherService.getCustomerVoucher(customerId);
-        // TODO: check if customer have claimed this voucher
         return vouchers.stream().filter(voucher -> {
             if (voucher.getVisibility() == Visibility.PUBLIC)
                 return true;
