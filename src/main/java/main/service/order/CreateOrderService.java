@@ -38,23 +38,23 @@ public class CreateOrderService {
         Order order = new Order(id, customerId, OrderStatus.UNDELIVERED, new Date(), payment, address, name, phone, email, products, voucher);
         for (OrderProduct orderProduct: products) {
             int numberOfProductLeft = searchProductService.getProductById(orderProduct.id).getAmount();
-            int numberOfVoucherLeft = voucher.getQuantity();
+            int numberOfVoucherLeft = voucher == null ? 0 : voucher.getQuantity();
             for (Order oldOrder: oldOrders) {
                 for (OrderProduct oldOrderProduct: oldOrder.getProducts()) {
                     if (oldOrderProduct.id.equals(orderProduct.id)) {
                         numberOfProductLeft -= oldOrderProduct.amount;
                     }
                 }
-                if (oldOrder.getVoucher() != null) {
+                if (oldOrder.getVoucher() != null && voucher != null) {
                     if (oldOrder.getVoucher().getCode().equals(voucher.getCode())) {
                         numberOfVoucherLeft -= 1;
                     }
                 }
             }
-            if (numberOfProductLeft < orderProduct.amount) {
+            if (numberOfProductLeft < orderProduct.amount && voucher != null) {
                 throw new Exception("Not enough product left");
             }
-            if (numberOfVoucherLeft < 1) {
+            if (numberOfVoucherLeft < 1 && voucher != null) {
                 throw new Exception("Not enough voucher left");
             }
         }
