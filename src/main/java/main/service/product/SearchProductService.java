@@ -23,7 +23,8 @@ public class SearchProductService {
 
     public List<Product> getProductsByIds(List<UUID> ids) throws Exception {
         List<Product> products = productRepository.getAllProducts();
-        products.removeIf(product -> !ids.contains(product.getId()));
+        // products is immutable, so we need to create a new list
+        products = products.stream().filter(product -> ids.contains(product.getId())).toList();
         return products;
     }
 
