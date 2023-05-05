@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,17 +19,12 @@ public class ListOrderController {
     @Autowired
     private SearchOrderService searchOrderService;
 
-    @Validated
-    static class ListOrderRequest {
-        public String customerId;
-    }
-
     @GetMapping("/order")
     public ResponseEntity<Response<?>> listOrder(
-            @RequestBody ListOrderRequest request
+            @RequestHeader(value = "Authorization") String auth
     ) {
         try {
-            List<Order> orders = searchOrderService.getOrders(UUID.fromString(request.customerId));
+            List<Order> orders = searchOrderService.getOrders(UUID.fromString(auth));
             return ResponseEntity.ok(new Response<>("Found " + orders.size() + " orders", true, orders));
         } catch (Exception e) {
             e.printStackTrace();
