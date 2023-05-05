@@ -7,10 +7,7 @@ import main.service.voucher.SearchVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -22,18 +19,14 @@ public class GetVoucherByCodeController {
     @Autowired
     private SearchCustomerAuthService searchCustomerAuthService;
 
-    public static class GetVoucherRequest {
-        public String customerId;
-    }
-
     @GetMapping(value = "/voucher/{code}")
     public ResponseEntity<Response<?>> getVoucherByCode(
             @NonNull @PathVariable String code,
-            @RequestBody GetVoucherRequest requestBody
+            @RequestHeader("Authorization") @NonNull String auth
     ) {
         try {
-            searchCustomerAuthService.getCustomerAuthById(UUID.fromString(requestBody.customerId));
-            Voucher voucher = searchVoucherService.getVoucherByCode(UUID.fromString(code), UUID.fromString(requestBody.customerId));
+            searchCustomerAuthService.getCustomerAuthById(UUID.fromString(auth));
+            Voucher voucher = searchVoucherService.getVoucherByCode(UUID.fromString(code), UUID.fromString(auth));
             if (voucher == null)
                 throw new Exception("Voucher with code " + code + " not found");
             return ResponseEntity.ok(new Response<Voucher>(
