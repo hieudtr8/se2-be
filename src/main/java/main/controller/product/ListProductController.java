@@ -35,7 +35,7 @@ public class ListProductController {
             if (keyword != null) {
                 products = products.stream().filter(product -> product.getName().toLowerCase().contains(keyword.toLowerCase())).toList();
             }
-            if (brand != null) {
+            if (brand != null && brand != "") {
                 products = products.stream().filter(product -> product.getBrand().equalsIgnoreCase(brand)).toList();
             }
             if (sorting != null) {
