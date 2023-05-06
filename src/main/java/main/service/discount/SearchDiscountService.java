@@ -25,4 +25,8 @@ public class SearchDiscountService {
         List<Discount> discounts = discountRepository.getDiscountsOf(productId.toString());
         return discounts;
     }
+    public List<Discount> getDiscounts() {
+        List<Discount> discounts = discountRepository.getDiscounts();
+        return discounts;
+    }
 }
