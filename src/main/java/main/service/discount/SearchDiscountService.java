@@ -21,7 +21,7 @@ public class SearchDiscountService {
         return discount;
     }
 
-    public List<Discount> getDiscountsOfProduct(UUID productId) {
+    public List<Discount> getDiscountsOfProduct(UUID productId) throws Exception {
         List<Discount> discounts = discountRepository.getDiscountsOf(productId.toString());
         return discounts;
     }
