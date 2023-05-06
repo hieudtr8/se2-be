@@ -28,7 +28,7 @@ public class DiscountRepository {
     public List<Discount> getDiscountsOf(String productId) throws Exception {
         List<DiscountRepoModel> discountRepoModels = discountRepoJpa.findAllByProductId(productId).orElse(null);
 
-        if (discountRepoModels == null && discountRepoModels.size() == 0) {
+        if (discountRepoModels == null || discountRepoModels.size() == 0) {
             throw new Exception("Nothing found");
         }
 
