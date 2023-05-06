@@ -25,10 +25,14 @@ public class DiscountRepository {
         return discountRepoJpa.findById(id).map(this::mapDiscount).orElse(null);
     }
 
-    public List<Discount> getDiscountsOf(String productId) {
+    public List<Discount> getDiscountsOf(String productId) throws Exception {
         List<DiscountRepoModel> discountRepoModels = discountRepoJpa.findAllByProductId(productId).orElse(null);
 
-        return discountRepoModels == null ? null : discountRepoModels.stream().map(this::mapDiscount).toList();
+        if (discountRepoModels == null && discountRepoModels.size() == 0) {
+            throw new Exception("Nothing found");
+        }
+
+        return discountRepoModels.stream().map(this::mapDiscount).toList();
     }
 
     public void deleteDiscount(String discountId) throws Exception {
