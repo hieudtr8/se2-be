@@ -28,7 +28,7 @@ public class DiscountRepository {
     public List<Discount> getDiscountsOf(String productId) {
         List<DiscountRepoModel> discountRepoModels = discountRepoJpa.findAllByProductId(productId).orElse(null);
 
-        return discountRepoModels.stream().map(this::mapDiscount).toList();
+        return discountRepoModels == null ? null : discountRepoModels.stream().map(this::mapDiscount).toList();
     }
 
     public void deleteDiscount(String discountId) throws Exception {
