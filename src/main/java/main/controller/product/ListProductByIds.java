@@ -5,10 +5,7 @@ import main.service.product.SearchProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
@@ -24,7 +21,7 @@ public class ListProductByIds {
         public String[] ids;
     }
 
-    @GetMapping(value = "/product/ids")
+    @PostMapping(value = "/product/ids")
     public ResponseEntity<Response<?>> getProductByIds(
             @RequestBody IdsRequestBody body
     ) {
