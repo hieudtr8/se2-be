@@ -51,4 +51,9 @@ public class DiscountRepository {
         }
         return discount;
     }
+
+    public List<Discount> getDiscounts() {
+        List<DiscountRepoModel> discounts = discountRepoJpa.findAll();
+        return discounts.stream().map(this::mapDiscount).toList();
+    }
 }
